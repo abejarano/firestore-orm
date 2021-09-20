@@ -2,10 +2,10 @@ import {
   EntityConstructorOrPath,
   IEntity,
   ITransactionReferenceStorage,
-} from "./types";
-import { getMetadataStorage } from "./Metadata/MetadataUtils";
-import { BaseFirestoreRepository } from "./Repository/BaseFirestoreRepository";
-import { FirestoreTransaction } from "./Transaction/FirestoreTransaction";
+} from "./src/types";
+import { getMetadataStorage } from "./src/Metadata/MetadataUtils";
+import { BaseFirestoreRepository } from "./src/Repository/BaseFirestoreRepository";
+import { FirestoreTransaction } from "./src/Transaction/FirestoreTransaction";
 
 type RepositoryType = "default" | "base" | "custom" | "transaction";
 

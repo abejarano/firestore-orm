@@ -1,20 +1,20 @@
-import { SubCollection } from './SubCollection';
-import { ISubCollection } from '../types';
-import { Collection } from './Collection';
+import { SubCollection } from "./SubCollection";
+import { ISubCollection } from "../types";
+import { Collection } from "./Collection";
 
 const setCollection = jest.fn();
-jest.mock('../MetadataUtils', () => ({
+jest.mock("../MetadataUtils", () => ({
   getMetadataStorage: () => ({
     setCollection,
   }),
 }));
 
-describe('SubCollectionDecorator', () => {
+describe("SubCollectionDecorator", () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
-  it('should register collections', () => {
+  it("should register collections", () => {
     class SubEntity {
       public id: string;
     }
@@ -22,19 +22,19 @@ describe('SubCollectionDecorator', () => {
     class Entity {
       id: string;
 
-      @SubCollection(SubEntity, 'subs')
+      @SubCollection(SubEntity, "subs")
       subentity: ISubCollection<SubEntity>;
     }
 
     expect(setCollection).toHaveBeenCalledWith({
-      name: 'subs',
+      name: "subs",
       entityConstructor: SubEntity,
       parentEntityConstructor: Entity,
-      propertyKey: 'subentity',
+      propertyKey: "subentity",
     });
   });
 
-  it('should register collections with default name', () => {
+  it("should register collections with default name", () => {
     class SubEntity {
       public id: string;
     }
@@ -48,10 +48,10 @@ describe('SubCollectionDecorator', () => {
     }
 
     expect(setCollection).toHaveBeenCalledWith({
-      name: 'SubEntities',
+      name: "SubEntities",
       entityConstructor: SubEntity,
       parentEntityConstructor: Entity,
-      propertyKey: 'subentity',
+      propertyKey: "subentity",
     });
   });
 });

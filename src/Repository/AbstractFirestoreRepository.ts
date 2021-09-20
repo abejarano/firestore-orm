@@ -102,7 +102,7 @@ export abstract class AbstractFirestoreRepository<T extends IEntity>
   ) => {
     // Requiring here to prevent circular dependency
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { getRepository } = require("../helpers");
+    const { getRepository } = require("../../helpers");
     // eslint-disable-next-line @typescript-eslint/no-var-requires
 
     const {
