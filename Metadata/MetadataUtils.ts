@@ -1,0 +1,50 @@
+import { MetadataStorage, MetadataStorageConfig } from "./MetadataStorage";
+// import { Firestore } from "@firebase/firestore";
+import firebase from "firebase/compat";
+import Firestore = firebase.firestore.Firestore;
+
+export interface IMetadataStore {
+  metadataStorage: MetadataStorage;
+}
+
+export function getStore(): IMetadataStore {
+  return global as never;
+}
+
+function initializeMetadataStorage() {
+  const store = getStore();
+
+  if (!store.metadataStorage) {
+    store.metadataStorage = new MetadataStorage();
+  }
+}
+
+/**
+ * Return exisiting metadataStorage, otherwise create if not present
+ */
+export const getMetadataStorage = (): MetadataStorage => {
+  const store = getStore();
+  initializeMetadataStorage();
+
+  return store.metadataStorage;
+};
+
+export const initialize = (
+  firestore: Firestore,
+  config: MetadataStorageConfig = {
+    validateModels: false,
+    validatorOptions: {},
+  }
+): void => {
+  initializeMetadataStorage();
+
+  const { metadataStorage } = getStore();
+
+  metadataStorage.firestoreRef = firestore;
+  metadataStorage.config = config;
+};
+
+/**
+ * @deprecated Use initialize. This will be removed in a future version.
+ */
+export const Initialize = initialize;
